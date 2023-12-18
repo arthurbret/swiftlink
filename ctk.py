@@ -31,9 +31,10 @@ def clear_fields():
 def browse_photo():
     pass
 
-fenetre = ctk.CTk()
+fenetre = ctk.CTk(fg_color="#6F8FAF")
 fenetre.title("Swiftlink") # Titre de la fenêtre
 fenetre.iconbitmap("logo.ico") # Logo de la fenêtre
+
 
 nom_var = ctk.StringVar()
 prenom_var = ctk.StringVar()
