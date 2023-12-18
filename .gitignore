@@ -1,0 +1,3 @@
+# .gitignore
+swiftlinkdb.db
+__pycache__

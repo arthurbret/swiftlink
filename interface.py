@@ -84,21 +84,43 @@ def affichage_base():
     bouton_supprimer.pack()
     bouton_rechercher.pack()
 
-    # Création de la listbox pour afficher les contacts
-    listbox_contacts = tk.Listbox(fenetre)
-    listbox_contacts.pack()
+    # Create a treeview widget
+    treeview_contacts = ttk.Treeview(fenetre)
 
-    # Fonction pour mettre à jour la listbox avec les contacts de la base de données
+    # Define the columns
+    treeview_contacts['columns'] = ('first_name', 'last_name', 'phone', 'email', 'address')
+
+    # Format the columns
+    treeview_contacts.column('#0', width=0, stretch='NO')  # First column is for the treeview's built-in id, which we won't use
+    treeview_contacts.column('first_name', anchor='w', width=100)
+    treeview_contacts.column('last_name', anchor='w', width=100)
+    treeview_contacts.column('phone', anchor='w', width=100)
+    treeview_contacts.column('email', anchor='w', width=100)
+    treeview_contacts.column('address', anchor='w', width=100)
+
+    # Create the headings
+    treeview_contacts.heading('#0', text='', anchor='w')
+    treeview_contacts.heading('first_name', text='Prénom', anchor='w')
+    treeview_contacts.heading('last_name', text='Nom', anchor='w')
+    treeview_contacts.heading('phone', text='Téléphone', anchor='w')
+    treeview_contacts.heading('email', text='Email', anchor='w')
+    treeview_contacts.heading('address', text='Photo de profil', anchor='w')
+
+    # Place the treeview widget
+    treeview_contacts.pack()
+
+    # Function to update the treeview with the contacts from the database
     def update_contacts_list():
-        # Effacer les anciens contacts de la listbox
-        listbox_contacts.delete(0, tk.END)
+        # Clear the old contacts from the treeview
+        for i in treeview_contacts.get_children():
+            treeview_contacts.delete(i)
 
-        # Récupérer tous les contacts de la base de données
+        # Get all the contacts from the database
         contacts = get_all_contacts()
 
-        # Ajouter chaque contact à la listbox
+        # Add each contact to the treeview
         for contact in contacts:
-            listbox_contacts.insert(tk.END, f"{contact[1]} {contact[2]} - {contact[3]} - {contact[4]} - {contact[5]}")
+            treeview_contacts.insert('', 'end', values=(contact[1], contact[2], contact[3], contact[4], contact[5]))
 
     # Appeler la fonction pour mettre à jour la listbox au démarrage
     update_contacts_list()
