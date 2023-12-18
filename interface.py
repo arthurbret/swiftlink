@@ -2,9 +2,12 @@ import tkinter as tk
 import tkinter.ttk as ttk
 from SQLite_func import create_contact
 
-def ajouter_contact():
+def reset_frame():
     for widget in fenetre.winfo_children():
         widget.destroy()
+
+def ajouter_contact():
+    reset_frame()
 
     # Create labels and entry fields for each contact attribute
     label_nom = ttk.Label(fenetre, text="Nom:")
@@ -43,7 +46,7 @@ def ajouter_contact():
         create_contact(prenom, nom, email, tel, photo)
 
         # Close the add contact window
-        fenetre.destroy()
+        affichage_base()
 
     # Create a submit button
     submit_button = ttk.Button(fenetre, text="Submit", command=submit_contact)
@@ -65,17 +68,21 @@ def rechercher_contact():
 # Création de la fenêtre principale
 fenetre = tk.Tk()
 
-# Création des boutons
-bouton_ajouter = ttk.Button(fenetre, text="Ajouter un contact", command=ajouter_contact)
-bouton_modifier = ttk.Button(fenetre, text="Modifier un contact", command=modifier_contact)
-bouton_supprimer = ttk.Button(fenetre, text="Supprimer un contact", command=supprimer_contact)
-bouton_rechercher = ttk.Button(fenetre, text="Rechercher un contact", command=rechercher_contact)
+def affichage_base():
+    reset_frame()
+    # Création des boutons
+    bouton_ajouter = ttk.Button(fenetre, text="Ajouter un contact", command=ajouter_contact)
+    bouton_modifier = ttk.Button(fenetre, text="Modifier un contact", command=modifier_contact)
+    bouton_supprimer = ttk.Button(fenetre, text="Supprimer un contact", command=supprimer_contact)
+    bouton_rechercher = ttk.Button(fenetre, text="Rechercher un contact", command=rechercher_contact)
 
-# Placement des boutons dans la fenêtre
-bouton_ajouter.pack()
-bouton_modifier.pack()
-bouton_supprimer.pack()
-bouton_rechercher.pack()
+    # Placement des boutons dans la fenêtre
+    bouton_ajouter.pack()
+    bouton_modifier.pack()
+    bouton_supprimer.pack()
+    bouton_rechercher.pack()
 
-# Boucle principale de la fenêtre
-fenetre.mainloop()
+    # Boucle principale de la fenêtre
+    fenetre.mainloop()
+
+affichage_base()
