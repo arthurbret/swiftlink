@@ -4,6 +4,7 @@ from tkinter import filedialog
 from SQLite_func import create_contact
 from SQLite_func import get_all_contacts
 
+
 def ajouter_contact():
     nom = nom_var.get()
     prenom = prenom_var.get()
@@ -33,6 +34,7 @@ def browse_photo():
 fenetre = tk.Tk()
 fenetre.title("Swiftlink") # Titre de la fenêtre
 fenetre.iconbitmap("logo.ico") # Logo de la fenêtre
+fenetre.config(bg="#4169E1")
 
 # Variables
 nom_var = tk.StringVar()
@@ -42,7 +44,7 @@ telephone_var = tk.StringVar()
 photo_var = tk.StringVar()
 
 # Treeview
-tree = ttk.Treeview(fenetre, columns=("Nom", "Prénom", "Email", "Téléphone", "Photo"), show="headings", height=10)
+tree = ttk.Treeview(fenetre, columns=("Nom", "Prénom", "Email", "Téléphone", "Photo"), show="headings", height=10, )
 tree.heading("Nom", text="Nom")
 tree.heading("Prénom", text="Prénom")
 tree.heading("Email", text="Email")
@@ -64,33 +66,34 @@ def update_contacts_list():
 update_contacts_list()
 
 # Entry Fields
-fields_frame = tk.Frame(fenetre)
+fields_frame = tk.Frame(fenetre, bg="#40E0D0")
 fields_frame.grid(row=0, column=1, padx=10, pady=10, sticky="nsew")
 
 ttk.Label(fields_frame, text="Nom:").grid(row=0, column=0, sticky="e")
-ttk.Entry(fields_frame, textvariable=nom_var).grid(row=0, column=1, sticky="w")
+ttk.Entry(fields_frame, textvariable=nom_var).grid(row=0, column=1, padx=5, pady=5, sticky="w")
 
 ttk.Label(fields_frame, text="Prénom:").grid(row=1, column=0, sticky="e")
-ttk.Entry(fields_frame, textvariable=prenom_var).grid(row=1, column=1, sticky="w")
+ttk.Entry(fields_frame, textvariable=prenom_var).grid(row=1, column=1, padx=5, pady=5, sticky="w")
 
 ttk.Label(fields_frame, text="Email:").grid(row=2, column=0, sticky="e")
-ttk.Entry(fields_frame, textvariable=email_var).grid(row=2, column=1, sticky="w")
+ttk.Entry(fields_frame, textvariable=email_var).grid(row=2, column=1, padx=5, pady=5, sticky="w")
 
 ttk.Label(fields_frame, text="Téléphone:").grid(row=3, column=0, sticky="e")
-ttk.Entry(fields_frame, textvariable=telephone_var).grid(row=3, column=1, sticky="w")
+ttk.Entry(fields_frame, textvariable=telephone_var).grid(row=3, column=1, padx=5, pady=5, sticky="w")
 
 ttk.Label(fields_frame, text="Photo:").grid(row=4, column=0, sticky="e")
-ttk.Entry(fields_frame, textvariable=photo_var).grid(row=4, column=1, sticky="w")
-ttk.Button(fields_frame, text="Parcourir", command=browse_photo).grid(row=4, column=2, padx=5, sticky="w")
+ttk.Entry(fields_frame, textvariable=photo_var).grid(row=4, column=1, padx=5, pady=5, sticky="w")
+tk.Button(fields_frame, text="Parcourir", command=browse_photo).grid(row=4, column=2, sticky="w")
 
 # Buttons
 button_frame = tk.Frame(fields_frame)
-button_frame.grid(row=5, columnspan=3, sticky="nsew")
+button_frame.config(bg="#40E0D0")
+button_frame.grid(row=5, columnspan=3, pady=5, sticky="nsew")
 
-ttk.Button(button_frame, text="Ajouter", command=ajouter_contact).grid(row=0, column=0, padx=5, sticky="nsew")
-ttk.Button(button_frame, text="Supprimer", command=supprimer_contact).grid(row=0, column=1, padx=5, sticky="nsew")
-ttk.Button(button_frame, text="Modifier", command=modifier_contact).grid(row=0, column=2, padx=5, sticky="nsew")
-ttk.Button(button_frame, text="Rechercher", command=rechercher_contact).grid(row=0, column=3, padx=5, sticky="nsew")
+tk.Button(button_frame, text="Ajouter", command=ajouter_contact).grid(row=0, column=0, padx=5, pady=5, sticky="nsew")
+tk.Button(button_frame, text="Supprimer", command=supprimer_contact).grid(row=0, column=1, padx=5, pady=5, sticky="nsew")
+tk.Button(button_frame, text="Modifier", command=modifier_contact).grid(row=0, column=2, padx=5, pady=5, sticky="nsew")
+tk.Button(button_frame, text="Rechercher", command=rechercher_contact).grid(row=0, column=3, padx=5, pady=5, sticky="nsew")
 
 # Configuration des poids des lignes et colonnes pour rendre l'interface responsive
 fenetre.columnconfigure(0, weight=1)
