@@ -1,9 +1,54 @@
 import tkinter as tk
 import tkinter.ttk as ttk
+from SQLite_func import create_contact
 
 def ajouter_contact():
-    # Logique pour ajouter un contact
-    pass
+    for widget in fenetre.winfo_children():
+        widget.destroy()
+
+    # Create labels and entry fields for each contact attribute
+    label_nom = ttk.Label(fenetre, text="Nom:")
+    label_nom.pack()
+    entry_nom = ttk.Entry(fenetre)
+    entry_nom.pack()
+
+    label_prenom = ttk.Label(fenetre, text="Prénom:")
+    label_prenom.pack()
+    entry_prenom = ttk.Entry(fenetre)
+    entry_prenom.pack()
+
+    label_email = ttk.Label(fenetre, text="Email:")
+    label_email.pack()
+    entry_email = ttk.Entry(fenetre)
+    entry_email.pack()
+
+    label_tel = ttk.Label(fenetre, text="Téléphone:")
+    label_tel.pack()
+    entry_tel = ttk.Entry(fenetre)
+    entry_tel.pack()
+
+    label_photo = ttk.Label(fenetre, text="Photo de profil (lien):")
+    label_photo.pack()
+    entry_photo = ttk.Entry(fenetre)
+    entry_photo.pack()
+
+    # Function to handle the submit button click
+    def submit_contact():
+        nom = entry_nom.get()
+        prenom = entry_prenom.get()
+        email = entry_email.get()
+        tel = entry_tel.get()
+        photo = entry_photo.get()
+
+        create_contact(prenom, nom, email, tel, photo)
+
+        # Close the add contact window
+        fenetre.destroy()
+
+    # Create a submit button
+    submit_button = ttk.Button(fenetre, text="Submit", command=submit_contact)
+    submit_button.pack()
+
 
 def modifier_contact():
     # Logique pour modifier un contact
