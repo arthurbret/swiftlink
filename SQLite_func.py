@@ -1,6 +1,6 @@
 # Initialisation de la base de données sqlite3
 import sqlite3
-connection = sqlite3.connect('database.db')
+connection = sqlite3.connect('swiftlinkdb.db')
 print(connection.total_changes)
 cursor = connection.cursor()
 cursor.execute('CREATE TABLE IF NOT EXISTS contacts (id INTEGER PRIMARY KEY, prenom TEXT, nom TEXT, email TEXT UNIQUE, tel TEXT UNIQUE, profilepic TEXT)')
