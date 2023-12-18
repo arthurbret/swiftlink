@@ -24,3 +24,9 @@ def update_contact(id, prenom, nom, email, tel, profilepic):
 def search_contact(nom):
     cursor.execute('SELECT * FROM contacts WHERE nom = ?', (nom,))
     return cursor.fetchall()
+
+# Fonction récupération de tous les contacts
+def get_all_contacts():
+    cursor.execute('SELECT * FROM contacts')
+    return cursor.fetchall()
+print(get_all_contacts())
