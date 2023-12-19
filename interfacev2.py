@@ -1,4 +1,5 @@
 import tkinter as tk
+import customtkinter as ctk
 from tkinter import ttk
 from SQLite_func import create_contact
 from SQLite_func import delete_contact
@@ -66,17 +67,16 @@ def browse_photo():
     pass
 
 # Création de la fenêtre principale
-fenetre = tk.Tk()
+fenetre = ctk.CTk(fg_color="#6F8FAF")
 fenetre.title("Swiftlink") # Titre de la fenêtre
 fenetre.iconbitmap("logo.ico") # Logo de la fenêtre
-fenetre.config(bg="#4169E1")
 
 # Variables
-nom_var = tk.StringVar()
-prenom_var = tk.StringVar()
-email_var = tk.StringVar()
-telephone_var = tk.StringVar()
-photo_var = tk.StringVar()
+nom_var = ctk.StringVar()
+prenom_var = ctk.StringVar()
+email_var = ctk.StringVar()
+telephone_var = ctk.StringVar()
+photo_var = ctk.StringVar()
 
 # Treeview
 tree = ttk.Treeview(fenetre, columns=("ID", "Prénom", "Nom", "Email", "Téléphone", "Photo"), show="headings", height=10)
@@ -103,34 +103,33 @@ def update_contacts_list():
 update_contacts_list()
 
 # Entry Fields
-fields_frame = tk.Frame(fenetre, bg="#40E0D0")
+fields_frame = ctk.CTkFrame(fenetre)
 fields_frame.grid(row=0, column=1, padx=10, pady=10, sticky="nsew")
 
-ttk.Label(fields_frame, text="Nom:").grid(row=0, column=0, sticky="e")
-ttk.Entry(fields_frame, textvariable=nom_var).grid(row=0, column=1, sticky="w")
+ctk.CTkLabel(fields_frame, text="Nom:").grid(row=0, column=0, sticky="e")
+ctk.CTkEntry(fields_frame, textvariable=nom_var).grid(row=0, column=1, padx=5, pady=5, sticky="w")
 
-ttk.Label(fields_frame, text="Prénom:").grid(row=1, column=0, sticky="e")
-ttk.Entry(fields_frame, textvariable=prenom_var).grid(row=1, column=1, sticky="w")
+ctk.CTkLabel(fields_frame, text="Prénom:").grid(row=1, column=0, sticky="e")
+ctk.CTkEntry(fields_frame, textvariable=prenom_var).grid(row=1, column=1, padx=5, pady=5, sticky="w")
 
-ttk.Label(fields_frame, text="Email:").grid(row=2, column=0, sticky="e")
-ttk.Entry(fields_frame, textvariable=email_var).grid(row=2, column=1, padx=5, pady=5, sticky="w")
+ctk.CTkLabel(fields_frame, text="Email:").grid(row=2, column=0, sticky="e")
+ctk.CTkEntry(fields_frame, textvariable=email_var).grid(row=2, column=1, padx=5, pady=5, sticky="w")
 
-ttk.Label(fields_frame, text="Téléphone:").grid(row=3, column=0, sticky="e")
-ttk.Entry(fields_frame, textvariable=telephone_var).grid(row=3, column=1, padx=5, pady=5, sticky="w")
+ctk.CTkLabel(fields_frame, text="Téléphone:").grid(row=3, column=0, sticky="e")
+ctk.CTkEntry(fields_frame, textvariable=telephone_var).grid(row=3, column=1, padx=5, pady=5, sticky="w")
 
-ttk.Label(fields_frame, text="Photo:").grid(row=4, column=0, sticky="e")
-ttk.Entry(fields_frame, textvariable=photo_var).grid(row=4, column=1, padx=5, pady=5, sticky="w")
-tk.Button(fields_frame, text="Parcourir", command=browse_photo).grid(row=4, column=2, sticky="w")
+ctk.CTkLabel(fields_frame, text="Photo:").grid(row=4, column=0, sticky="e")
+ctk.CTkEntry(fields_frame, textvariable=photo_var).grid(row=4, column=1, padx=5, pady=5, sticky="w")
+ctk.CTkButton(fields_frame, text="Parcourir", command=browse_photo).grid(row=4, column=2, sticky="w")
 
 # Buttons
-button_frame = tk.Frame(fields_frame)
-button_frame.config(bg="#40E0D0")
+button_frame = ctk.CTkFrame(fields_frame)
 button_frame.grid(row=5, columnspan=3, pady=5, sticky="nsew")
 
-tk.Button(button_frame, text="Ajouter", command=ajouter_contact).grid(row=0, column=0, padx=5, pady=5, sticky="nsew")
-tk.Button(button_frame, text="Supprimer", command=supprimer_contact).grid(row=0, column=1, padx=5, pady=5, sticky="nsew")
-tk.Button(button_frame, text="Modifier", command=modifier_contact).grid(row=0, column=2, padx=5, pady=5, sticky="nsew")
-tk.Button(button_frame, text="Rechercher", command=rechercher_contact).grid(row=0, column=3, padx=5, pady=5, sticky="nsew")
+ctk.CTkButton(button_frame, text="Ajouter", command=ajouter_contact).grid(row=0, column=0, padx=5, pady=5, sticky="nsew")
+ctk.CTkButton(button_frame, text="Supprimer", command=supprimer_contact).grid(row=0, column=1, padx=5, pady=5, sticky="nsew")
+ctk.CTkButton(button_frame, text="Modifier", command=modifier_contact).grid(row=0, column=2, padx=5, pady=5, sticky="nsew")
+ctk.CTkButton(button_frame, text="Rechercher", command=rechercher_contact).grid(row=0, column=3, padx=5, pady=5, sticky="nsew")
 
 # Configuration des poids des lignes et colonnes pour rendre l'interface responsive
 fenetre.columnconfigure(0, weight=1)
