@@ -21,9 +21,31 @@ def update_contact(id, prenom, nom, email, tel, profilepic):
     connection.commit()
 
 # Fonction recherche d'un contact
-def search_contact(nom):
-    cursor.execute('SELECT * FROM contacts WHERE nom = ?', (nom,))
-    return cursor.fetchall()
+def search_contact(prenom=None, nom=None, tel=None, email=None):
+    query = 'SELECT * FROM contacts WHERE'
+    conditions = []
+    values = []
+
+    if prenom:
+        conditions.append('prenom = ?')
+        values.append(prenom)
+    if nom:
+        conditions.append('nom = ?')
+        values.append(nom)
+    if tel:
+        conditions.append('tel = ?')
+        values.append(tel)
+    if email:
+        conditions.append('email = ?')
+        values.append(email)
+
+    if conditions:
+        query += ' ' + ' AND '.join(conditions)
+        cursor.execute(query, tuple(values))
+        return cursor.fetchall()
+    else:
+        return []
+
 
 # Fonction récupération de tous les contacts
 def get_all_contacts():
