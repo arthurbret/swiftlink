@@ -40,13 +40,12 @@ def supprimer_contact():
         delete_contact(contact_id)
         update_contacts_list()
 
-
 def modifier_contact():
     selected_item = tree.selection()
     if selected_item:
         contact_id = tree.item(selected_item)['values'][0]
-        prenom = prenom_var.get() if prenom_var.get() else tree.item(selected_item)['values'][1]
-        nom = nom_var.get() if nom_var.get() else tree.item(selected_item)['values'][2]
+        prenom = prenom_var.get() if prenom_var.get() else tree.item(selected_item)['values'][2]
+        nom = nom_var.get() if nom_var.get() else tree.item(selected_item)['values'][1]
         email = email_var.get() if email_var.get() else tree.item(selected_item)['values'][3]
         tel = telephone_var.get() if telephone_var.get() else tree.item(selected_item)['values'][4]
         photo = photo_var.get() if photo_var.get() else tree.item(selected_item)['values'][5]
