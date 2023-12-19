@@ -44,8 +44,8 @@ def modifier_contact():
     selected_item = tree.selection()
     if selected_item:
         contact_id = tree.item(selected_item)['values'][0]
-        prenom = prenom_var.get() if prenom_var.get() else tree.item(selected_item)['values'][2]
-        nom = nom_var.get() if nom_var.get() else tree.item(selected_item)['values'][1]
+        prenom = prenom_var.get() if prenom_var.get() else tree.item(selected_item)['values'][1]
+        nom = nom_var.get() if nom_var.get() else tree.item(selected_item)['values'][2]
         email = email_var.get() if email_var.get() else tree.item(selected_item)['values'][3]
         tel = telephone_var.get() if telephone_var.get() else tree.item(selected_item)['values'][4]
         photo = photo_var.get() if photo_var.get() else tree.item(selected_item)['values'][5]
@@ -90,10 +90,10 @@ telephone_var = ctk.StringVar()
 photo_var = ctk.StringVar()
 
 
-tree = ttk.Treeview(columns=("ID","Nom", "Prénom", "Email", "Téléphone", "Photo"), show="headings", height=10, master=tabview.tab("Contacts") )
+tree = ttk.Treeview(columns=("ID","Prénom", "Nom", "Email", "Téléphone", "Photo"), show="headings", height=10, master=tabview.tab("Contacts") )
 tree.heading("ID", text="ID")
-tree.heading("Nom", text="Nom")
 tree.heading("Prénom", text="Prénom")
+tree.heading("Nom", text="Nom")
 tree.heading("Email", text="Email")
 tree.heading("Téléphone", text="Téléphone")
 tree.heading("Photo", text="Photo")
