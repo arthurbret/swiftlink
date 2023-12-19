@@ -202,7 +202,7 @@ ctk.CTkButton(button_frame, text="Ajouter", command=ajouter_contact).grid(row=0,
 ctk.CTkButton(button_frame, text="Modifier", command=modifier_contact).grid(row=0, column=2, padx=5, pady=5, sticky="nsew")
 ctk.CTkButton(button_frame, text="Rechercher", command=rechercher_contact).grid(row=0, column=3, padx=5, pady=5, sticky="nsew")
 
-state_notif= ctk.CTkLabel(tabview.tab("Rechercher"), text="", justify="center", anchor="center")
+state_notif= ctk.CTkLabel(tabview.tab("Actions"), text="", justify="center", anchor="center")
 state_notif.grid(row=1, column=1)
 state_notif2= ctk.CTkLabel(tabview.tab("Contacts"), text="", justify="center", anchor="center")
 state_notif2.grid(row=2,column=0)
