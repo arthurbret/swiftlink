@@ -2,6 +2,9 @@ import tkinter as tk
 import tkinter.ttk as ttk
 from SQLite_func import create_contact
 from SQLite_func import get_all_contacts
+import tkinter.font as font
+
+
 
 def reset_frame():
     for widget in fenetre.winfo_children():
@@ -67,60 +70,39 @@ def rechercher_contact():
     pass
 
 # Création de la fenêtre principale
+
 fenetre = tk.Tk()
+fenetre.geometry("400x300")
 
 def affichage_base():
     reset_frame()
-    
     # Création des boutons
-    bouton_ajouter = ttk.Button(fenetre, text="Ajouter un contact", command=ajouter_contact)
-    bouton_modifier = ttk.Button(fenetre, text="Modifier un contact", command=modifier_contact)
-    bouton_supprimer = ttk.Button(fenetre, text="Supprimer un contact", command=supprimer_contact)
-    bouton_rechercher = ttk.Button(fenetre, text="Rechercher un contact", command=rechercher_contact)
+    bouton_ajouter = tk.Button(fenetre, text="Ajouter un contact",font=font.Font(size=13),height=2, bg="lightblue", fg="#000000", command=ajouter_contact)
+    bouton_modifier = tk.Button(fenetre, text="Modifier un contact",font=font.Font(size=13),height=2, bg="lightblue", fg="#000000", command=modifier_contact)
+    bouton_supprimer = tk.Button(fenetre, text="Supprimer un contact",font=font.Font(size=13),height=2, bg="lightblue", fg="#000000", command=supprimer_contact)
+    bouton_rechercher = tk.Button(fenetre, text="Rechercher un contact",font=font.Font(size=13),height=2, bg="lightblue", fg="#000000", command=rechercher_contact)
 
     # Placement des boutons dans la fenêtre
-    bouton_ajouter.pack()
-    bouton_modifier.pack()
-    bouton_supprimer.pack()
-    bouton_rechercher.pack()
+    bouton_ajouter.pack(padx=20,pady=10)
+    bouton_modifier.pack(padx=20,pady=10)
+    bouton_supprimer.pack(padx=20,pady=10)
+    bouton_rechercher.pack(padx=20,pady=10)
 
-    # Create a treeview widget
-    treeview_contacts = ttk.Treeview(fenetre)
+    # Création de la listbox pour afficher les contacts
+    listbox_contacts = tk.Listbox(fenetre)
+    listbox_contacts.pack()
 
-    # Define the columns
-    treeview_contacts['columns'] = ('first_name', 'last_name', 'phone', 'email', 'address')
-
-    # Format the columns
-    treeview_contacts.column('#0', width=0, stretch='NO')  # First column is for the treeview's built-in id, which we won't use
-    treeview_contacts.column('first_name', anchor='w', width=100)
-    treeview_contacts.column('last_name', anchor='w', width=100)
-    treeview_contacts.column('phone', anchor='w', width=100)
-    treeview_contacts.column('email', anchor='w', width=100)
-    treeview_contacts.column('address', anchor='w', width=100)
-
-    # Create the headings
-    treeview_contacts.heading('#0', text='', anchor='w')
-    treeview_contacts.heading('first_name', text='Prénom', anchor='w')
-    treeview_contacts.heading('last_name', text='Nom', anchor='w')
-    treeview_contacts.heading('phone', text='Téléphone', anchor='w')
-    treeview_contacts.heading('email', text='Email', anchor='w')
-    treeview_contacts.heading('address', text='Photo de profil', anchor='w')
-
-    # Place the treeview widget
-    treeview_contacts.pack()
-
-    # Function to update the treeview with the contacts from the database
+    # Fonction pour mettre à jour la listbox avec les contacts de la base de données
     def update_contacts_list():
-        # Clear the old contacts from the treeview
-        for i in treeview_contacts.get_children():
-            treeview_contacts.delete(i)
+        # Effacer les anciens contacts de la listbox
+        listbox_contacts.delete(0, tk.END)
 
-        # Get all the contacts from the database
+        # Récupérer tous les contacts de la base de données
         contacts = get_all_contacts()
 
-        # Add each contact to the treeview
+        # Ajouter chaque contact à la listbox
         for contact in contacts:
-            treeview_contacts.insert('', 'end', values=(contact[1], contact[2], contact[3], contact[4], contact[5]))
+            listbox_contacts.insert(tk.END, f"{contact[1]} {contact[2]} - {contact[3]} - {contact[4]} - {contact[5]}")
 
     # Appeler la fonction pour mettre à jour la listbox au démarrage
     update_contacts_list()
