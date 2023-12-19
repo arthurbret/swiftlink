@@ -13,6 +13,9 @@ ctk.set_default_color_theme("dark-blue")
 def change_tab_Rechercher():
     tabview.set("Rechercher")
 
+def state_modif(label, text, color):
+    label.configure(text=text, text_color=color)
+
 def clear_fields():
     prenom_var.set("")
     nom_var.set("")
@@ -27,10 +30,15 @@ def ajouter_contact():
     email = email_var.get()
     tel = telephone_var.get()
     photo = photo_var.get()
-    clear_fields()
 
-    create_contact(prenom, nom, email, tel, photo)
-    update_contacts_list()
+    if "@" not in email:
+        state_modif(state_notif,"email incorrect","red")
+        email_var.set("")
+    else:
+        clear_fields()
+        create_contact(prenom, nom, email, tel, photo)
+        update_contacts_list()
+        state_modif(state_notif,"contact ajoute","blue")
 
 def supprimer_contact():
     selected_item = tree.selection()
@@ -39,6 +47,7 @@ def supprimer_contact():
         print(contact_id)
         delete_contact(contact_id)
         update_contacts_list()
+        state_modif(state_notif2,"contact supprime","blue")
 
 
 def modifier_contact():
@@ -53,9 +62,16 @@ def modifier_contact():
         print("Prenom:{} Nom:{}" .format(prenom_var.get(), nom_var.get()))
         print("Prenom:{} Nom:{}" .format(tree.item(selected_item)['values'][1], tree.item(selected_item)['values'][2]))
         # Update the contact in the database
+
+    if "@" not in email:
+        state_modif(state_notif,"email incorrect","red")
+        email_var.set("")
+    else:
         update_contact(contact_id, prenom, nom, email, tel, photo)
         update_contacts_list()   
         clear_fields()
+        state_modif(state_notif,"contact modifie","blue")
+
 
 def rechercher_contact():
     nom = nom_var.get()
@@ -122,7 +138,7 @@ def update_contacts_list():
 update_contacts_list()
 
 fields_frame = ctk.CTkFrame(master=tabview.tab("Rechercher"))
-fields_frame.grid(row=0, column=1, padx=10, pady=10, sticky="nsew")
+fields_frame.grid(row=0, column=1, padx=10)#, sticky="nwse")
 
 ctk.CTkLabel(fields_frame, text="Nom:").grid(row=0, column=0, sticky="e")
 ctk.CTkEntry(fields_frame, textvariable=nom_var).grid(row=0, column=1, padx=5, pady=5, sticky="w")
@@ -148,10 +164,15 @@ ctk.CTkButton(button_frame, text="Ajouter", command=ajouter_contact).grid(row=0,
 ctk.CTkButton(button_frame, text="Modifier", command=modifier_contact).grid(row=0, column=2, padx=5, pady=5, sticky="nsew")
 ctk.CTkButton(button_frame, text="Rechercher", command=rechercher_contact).grid(row=0, column=3, padx=5, pady=5, sticky="nsew")
 
+state_notif= ctk.CTkLabel(tabview.tab("Rechercher"), text="", justify="center", anchor="center")
+state_notif.grid(row=1, column=1)
+state_notif2= ctk.CTkLabel(tabview.tab("Contacts"), text="", justify="center", anchor="center")
+state_notif2.grid(row=2,column=0)
+
 fenetre.columnconfigure(0, weight=1)
 fenetre.columnconfigure(1, weight=1)
 fenetre.rowconfigure(0, weight=1)
 
-tabview.set("Contacts")  # set currently visible tab
+
 
 fenetre.mainloop()
