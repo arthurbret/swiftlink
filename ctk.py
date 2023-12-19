@@ -49,7 +49,6 @@ def supprimer_contact():
         update_contacts_list()
         state_modif(state_notif2,"contact supprime","blue")
 
-
 def modifier_contact():
     selected_item = tree.selection()
     if selected_item:
@@ -107,10 +106,10 @@ telephone_var = ctk.StringVar()
 photo_var = ctk.StringVar()
 
 
-tree = ttk.Treeview(columns=("ID","Nom", "Prénom", "Email", "Téléphone", "Photo"), show="headings", height=10, master=tabview.tab("Contacts") )
+tree = ttk.Treeview(columns=("ID","Prénom", "Nom", "Email", "Téléphone", "Photo"), show="headings", height=10, master=tabview.tab("Contacts") )
 tree.heading("ID", text="ID")
-tree.heading("Nom", text="Nom")
 tree.heading("Prénom", text="Prénom")
+tree.heading("Nom", text="Nom")
 tree.heading("Email", text="Email")
 tree.heading("Téléphone", text="Téléphone")
 tree.heading("Photo", text="Photo")
