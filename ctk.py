@@ -19,9 +19,6 @@ def change_tab_action():
 def state_modif(label, text, color):
     label.configure(text=text, text_color=color)
 
-def state_modif(label, text, color):
-    label.configure(text=text, text_color=color)
-
 def clear_fields():
     prenom_var.set("")
     nom_var.set("")
@@ -70,21 +67,10 @@ def modifier_contact():
         tel = telephone_var.get() if telephone_var.get() else tree.item(selected_item)['values'][4]
         photo = photo_var.get() if photo_var.get() else tree.item(selected_item)['values'][5]
         # Update the contact in the database
-
-    if "@" not in email:
-        state_modif(state_notif,"email incorrect","red")
-        email_var.set("")
-    else:
-        for char in tel:
-            if char.isalpha():
-                state_modif(state_notif,"numero de telephone incorrect", "red")
-                telephone_var.set("")
-        else:
-            update_contact(contact_id, prenom, nom, email, tel, photo)
-            update_contacts_list()   
-            clear_fields()
-            state_modif(state_notif,"contact modifie","green")
-
+    update_contact(contact_id, prenom, nom, email, tel, photo)
+    update_contacts_list()
+    clear_fields()
+    state_modif(state_notif,"Contact modifié","green")
 
 def rechercher_contact():
     nom = nom_var.get()
@@ -108,7 +94,7 @@ def rechercher_contact():
         for contact in recherche:
             tree_results.insert('', 'end', values=(contact[0],contact[1], contact[2], contact[3], contact[4], contact[5]))
     else:
-        pass
+        state_modif(state_notif,"Aucun résultat","red")
     clear_fields()
         
 def browse_photo():

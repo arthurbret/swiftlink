@@ -21,7 +21,7 @@ def update_contact(id, prenom, nom, email, tel, profilepic):
     connection.commit()
 
 # Fonction recherche d'un contact
-def search_contact(prenom=None, nom=None, tel=None, email=None):
+def search_contact(prenom=None, nom=None, email=None, tel=None):
     query = 'SELECT * FROM contacts WHERE'
     conditions = []
     values = []
