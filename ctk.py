@@ -41,10 +41,15 @@ def ajouter_contact():
         state_modif(state_notif,"email incorrect","red")
         email_var.set("")
     else:
-        clear_fields()
-        create_contact(prenom, nom, email, tel, photo)
-        update_contacts_list()
-        state_modif(state_notif,"contact ajoute","blue")
+        for char in tel:
+            if char.isalpha():
+                state_modif(state_notif,"numero de telephone incorrect", "red")
+                telephone_var.set("")
+            else:
+                clear_fields()
+                create_contact(prenom, nom, email, tel, photo)
+                update_contacts_list()
+                state_modif(state_notif,"Contact ajoute","green")
 
 def supprimer_contact():
     selected_item = tree.selection()
@@ -53,7 +58,7 @@ def supprimer_contact():
         print(contact_id)
         delete_contact(contact_id)
         update_contacts_list()
-        state_modif(state_notif2,"contact supprime","blue")
+        state_modif(state_notif2,"contact supprime","green")
 
 def modifier_contact():
     selected_item = tree.selection()
@@ -70,10 +75,15 @@ def modifier_contact():
         state_modif(state_notif,"email incorrect","red")
         email_var.set("")
     else:
-        update_contact(contact_id, prenom, nom, email, tel, photo)
-        update_contacts_list()   
-        clear_fields()
-        state_modif(state_notif,"contact modifie","blue")
+        for char in tel:
+            if char.isalpha():
+                state_modif(state_notif,"numero de telephone incorrect", "red")
+                telephone_var.set("")
+        else:
+            update_contact(contact_id, prenom, nom, email, tel, photo)
+            update_contacts_list()   
+            clear_fields()
+            state_modif(state_notif,"contact modifie","green")
 
 
 def rechercher_contact():
@@ -192,7 +202,6 @@ ctk.CTkEntry(fields_frame, textvariable=telephone_var).grid(row=3, column=1, pad
 
 ctk.CTkLabel(fields_frame, text="Photo:").grid(row=4, column=0, sticky="e")
 ctk.CTkEntry(fields_frame, textvariable=photo_var).grid(row=4, column=1, padx=5, pady=5, sticky="w")
-ctk.CTkButton(fields_frame, text="Parcourir", command=browse_photo).grid(row=4, column=2, sticky="w")
 
 # Buttons
 button_frame = ctk.CTkFrame(fields_frame)
